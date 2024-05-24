@@ -8,7 +8,7 @@ const getAllUsers = async () => {
 const getUserById = async (userId) => {
   return await User.findOne({
     where: {
-      user_id: userId,
+      id: userId,
     },
   });
 };
