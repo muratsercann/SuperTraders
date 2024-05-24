@@ -6,11 +6,12 @@ const getAllUsers = async () => {
 };
 
 const getUserById = async (userId) => {
-  return await User.findOne({
-    where: {
-      id: userId,
-    },
-  });
+  return await User.findByPk(userId);
 };
 
-module.exports = { getAllUsers, getUserById };
+const isExistingUser = async (userId) => {
+  const user = await User.findByPk(userId);
+  return user ? true : false;
+};
+
+module.exports = { getAllUsers, getUserById, isExistingUser };
