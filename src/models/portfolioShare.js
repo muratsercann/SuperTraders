@@ -10,7 +10,7 @@ const PortfolioShare = sequelize.define(
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
-    },
+    },    
     portfolioId: {
       type: DataTypes.INTEGER,
       allowNull: false,

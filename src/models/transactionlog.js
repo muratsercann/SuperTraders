@@ -49,18 +49,14 @@ const Transactionlog = sequelize.define(
       type: DataTypes.DECIMAL(15, 2),
       allowNull: false,
     },
-    totalAmount: {
+    totalPrice: {
       type: DataTypes.DECIMAL(15, 2),
       allowNull: false,
-    },
-    date: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
+    }
   },
   {
     tableName: "Transactionlog",
-    timestamps: false,
+    timestamps: true,
   }
 );
 

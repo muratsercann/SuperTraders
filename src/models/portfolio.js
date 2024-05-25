@@ -12,6 +12,7 @@ const Portfolio = sequelize.define(
     },
     userId: {
       type: DataTypes.INTEGER,
+      unique : true,
       allowNull: false,
       references: {
         model: User,
@@ -26,7 +27,7 @@ const Portfolio = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    balance: {
+    limit: {
       type: DataTypes.DECIMAL(15, 2),
       allowNull: false,
       defaultValue: 0.0,
@@ -38,18 +39,8 @@ const Portfolio = sequelize.define(
   }
 );
 
-User.hasMany(Portfolio);//, { foreignKey: "user_id" });
-Portfolio.belongsTo(User);//, { foreignKey: "user_id" });
+User.hasOne(Portfolio, {  foreignKey: "userId" });
+Portfolio.belongsTo(User, { foreignKey: "userId" });
 
 module.exports = Portfolio;
 
-/*
-id
-userId
-limit
-name
-description
-balance
-currentTotalPrice
-
-*/

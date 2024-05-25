@@ -18,7 +18,12 @@ const Share = sequelize.define(
       type: DataTypes.DECIMAL(15, 2),
       allowNull: false,
       defaultValue: 0.0,
-    }
+    },
+    quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
   },
   {
     tableName: "Share",
