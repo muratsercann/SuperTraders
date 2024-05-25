@@ -41,5 +41,6 @@ const PortfolioShare = sequelize.define(
 
  Portfolio.hasMany(PortfolioShare, { foreignKey: "portfolioId" });
  PortfolioShare.belongsTo(Portfolio, { foreignKey: "portfolioId" });
+ PortfolioShare.hasOne(Share, {foreignKey : "id"});
 
 module.exports = PortfolioShare;
