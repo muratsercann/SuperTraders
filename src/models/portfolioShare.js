@@ -28,7 +28,7 @@ const PortfolioShare = sequelize.define(
       },
     },
     quantity: {
-      type: DataTypes.DECIMAL(15, 2),
+      type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0.0,
     }
@@ -39,9 +39,7 @@ const PortfolioShare = sequelize.define(
   }
 );
 
-// Portfolio.hasMany(PortfolioShare); //, { foreignKey: "portfolio_id" });
-// Share.hasMany(PortfolioShare); //, { foreignKey: "share_id" });
-// PortfolioShare.belongsTo(Portfolio); //, { foreignKey: "portfolio_id" });
-// PortfolioShare.belongsTo(Share); //, { foreignKey: "share_id" });
+ Portfolio.hasMany(PortfolioShare, { foreignKey: "portfolioId" });
+ PortfolioShare.belongsTo(Portfolio, { foreignKey: "portfolioId" });
 
 module.exports = PortfolioShare;

@@ -48,10 +48,34 @@ const Transactionlog = sequelize.define(
     pricePerShare: {
       type: DataTypes.DECIMAL(15, 2),
       allowNull: false,
+      get() {
+        const value = this.getDataValue('pricePerShare');
+        return parseFloat(value);
+      }
     },
     totalPrice: {
       type: DataTypes.DECIMAL(15, 2),
       allowNull: false,
+      get() {
+        const value = this.getDataValue('totalPrice');
+        return parseFloat(value);
+      }
+    },
+    beforeLimit : {
+      type: DataTypes.DECIMAL(15, 2),
+      allowNull: false,
+      get() {
+        const value = this.getDataValue('beforeLimit');
+        return parseFloat(value);
+      }
+    },
+    afterLimit : {
+      type: DataTypes.DECIMAL(15, 2),
+      allowNull: false,
+      get() {
+        const value = this.getDataValue('afterLimit');
+        return parseFloat(value);
+      }
     }
   },
   {

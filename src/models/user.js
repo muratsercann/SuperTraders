@@ -19,15 +19,6 @@ const User = sequelize.define(
       unique: true,
       allowNull: false,
     },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    currentBalance: {
-      type: DataTypes.DECIMAL(15, 2),
-      allowNull: false,
-      defaultValue: 0.0,
-    },
   },
   {
     tableName: "User",
