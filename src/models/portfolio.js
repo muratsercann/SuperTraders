@@ -12,7 +12,7 @@ const Portfolio = sequelize.define(
     },
     userId: {
       type: DataTypes.INTEGER,
-      unique : true,
+      unique: true,
       allowNull: false,
       references: {
         model: User,
@@ -32,19 +32,18 @@ const Portfolio = sequelize.define(
       allowNull: false,
       defaultValue: 0.0,
       get() {
-        const value = this.getDataValue('limit');
+        const value = this.getDataValue("limit");
         return parseFloat(value);
-      }
+      },
     },
   },
   {
     tableName: "Portfolio",
-    timestamps: true
+    timestamps: true,
   }
 );
 
-User.hasOne(Portfolio, {  foreignKey: "userId" });
+User.hasOne(Portfolio, { foreignKey: "userId" });
 Portfolio.belongsTo(User, { foreignKey: "userId" });
 
 module.exports = Portfolio;
-
