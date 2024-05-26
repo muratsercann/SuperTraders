@@ -1,0 +1,70 @@
+{
+	"info": {
+		"_postman_id": "74486f7f-c950-4406-bbb6-60dfe451310e",
+		"name": "SuperTraders_Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1547067"
+	},
+	"item": [
+		{
+			"name": "Buy Endpoint",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\" : 1,\r\n    \"shareId\" : 1,\r\n    \"quantity\" : 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/trade/buy",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"trade",
+						"buy"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sell Endpoint",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\" : 1,\r\n    \"shareId\" : 1,\r\n    \"quantity\" : 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/trade/sell",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"trade",
+						"sell"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
