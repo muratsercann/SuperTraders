@@ -1,33 +1,33 @@
-const tradeService = require("../services/tradeService");
+const buyShareService = require("../services/buyShareService");
 
 const createBuyOrder = async (req, res) => {
-  //validate params
-  if (!req.body.userId || !req.body.shareSymbol || !req.body.quantity) {
-    return res.send({ status: "bad request" });
-  }
-  const result = await tradeService.createBuyOrder(
+  const result = await buyShareService.handleBuying(
     req.body.userId,
-    req.body.shareSymbol,
+    req.body.shareId,
     req.body.quantity
   );
-  return res.send({ status: "OK", data: result });
-};
 
-
-const createSellOrder = async (req, res) => {
-  //validate params
-  if (!req.body.userId || !req.body.shareSymbol || !req.body.quantity) {    
-    return res.status(400).send({ status: "bad request" });;
+  if (result.success) {
+    res.status(200).json(result);
+  } else {
+    res.status(400).json(result);
   }
-  const result = await tradeService.createSellOrder(
-    req.body.userId,
-    req.body.shareSymbol,
-    req.body.quantity
-  );
-  return res.send({ status: "OK", data: result });
 };
+
+// const createSellOrder = async (req, res) => {
+//   const result = await sellShareService.handleSelling(
+//     req.body.userId,
+//     req.body.shareId,
+//     req.body.quantity
+//   );
+
+//   if (result.success) {
+//     res.status(200).json(result);
+//   } else {
+//     res.status(400).json(result);
+//   }
+// };
 
 module.exports = {
-  createSellOrder,
   createBuyOrder,
 };
