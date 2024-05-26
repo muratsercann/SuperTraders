@@ -6,7 +6,6 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
-// app.use("/api/users", userRoutes);
 app.use("/api/trade", tradeRoutes);
 
 app.listen(PORT, () => {
