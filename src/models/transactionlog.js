@@ -84,11 +84,4 @@ const Transactionlog = sequelize.define(
   }
 );
 
-// User.hasMany(TransactionHistory);//, { foreignKey: 'user_id' });
-// Portfolio.hasMany(TransactionHistory);//, { foreignKey: 'portfolio_id' });
-// Share.hasMany(TransactionHistory);//, { foreignKey: 'share_id' });
-// TransactionHistory.belongsTo(User);//, { foreignKey: 'user_id' });
-// TransactionHistory.belongsTo(Portfolio);//, { foreignKey: 'portfolio_id' });
-// TransactionHistory.belongsTo(Share);//, { foreignKey: 'share_id' });
-
 module.exports = Transactionlog;

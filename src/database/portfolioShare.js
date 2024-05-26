@@ -30,4 +30,14 @@ const updateShareQuantity = async (
   );
 };
 
-module.exports = { create, updateShareQuantity };
+const deleteShares = async (portfolioId, shareId, transaction) => {
+  const shareInPortfolio = await PortfolioShare.findOne({
+    where: { portfolioId: portfolioId, shareId: shareId },
+    transaction,
+  });
+  if (shareInPortfolio) {
+    await shareInPortfolio.destroy();
+  }
+};
+
+module.exports = { create, updateShareQuantity, deleteShares };

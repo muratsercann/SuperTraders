@@ -1,4 +1,4 @@
-const sequelize = require("../database/db"); //only for transaction
+const sequelize = require("../database/db");
 
 const Transactionlog = require("../database/transactionlog");
 const User = require("../database/user");
@@ -17,7 +17,10 @@ async function handleSelling(userId, shareIdToSell, shareQuantityToSell) {
     }
 
     if (!userData.Portfolio) {
-      return { success: false, message: "The user has not got a Portfolio for trade!" };
+      return {
+        success: false,
+        message: "The user has not got a Portfolio for trade!",
+      };
     }
 
     const shareToSell = await Share.getShareById(shareIdToSell);
@@ -60,14 +63,23 @@ async function handleSelling(userId, shareIdToSell, shareQuantityToSell) {
         transaction
       );
 
-      const newShareCountInPortfolio = existingShareInPortfolio.quantity - shareQuantityToSell;
+      const newShareCountInPortfolio =
+        existingShareInPortfolio.quantity - shareQuantityToSell;
 
-      await PortfolioShare.updateShareQuantity(
-        userData.Portfolio.id,
-        shareIdToSell,
-        newShareCountInPortfolio,
-        transaction
-      );
+      if (newShareCountInPortfolio === 0) {
+        PortfolioShare.deleteShares(
+          userData.Portfolio.id,
+          shareIdToSell,
+          transaction
+        );
+      } else {
+        await PortfolioShare.updateShareQuantity(
+          userData.Portfolio.id,
+          shareIdToSell,
+          newShareCountInPortfolio,
+          transaction
+        );
+      }
 
       const newShareCount = shareToSell.quantity + shareQuantityToSell;
       await Share.updateShareQuantity(
