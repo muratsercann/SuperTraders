@@ -8,4 +8,14 @@ const getUserPortfolio = async (userId) => {
   });
 };
 
-module.exports = { getAllUsers, getUserById };
+const updateLimit = async (portfolioId, newLimit, transaction) => {
+  const queryOptions = { where: { id: portfolioId } };
+  
+  if (transaction) {
+    queryOptions.transaction = transaction;
+  }
+
+  await Portfolio.update({ limit: newLimit }, queryOptions);
+}
+
+module.exports = { getUserPortfolio, updateLimit};
