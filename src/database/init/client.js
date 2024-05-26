@@ -9,7 +9,7 @@ const client = new Client({
     host: dbConfig.host,
     database: dbConfig.dialect,
     password: dbConfig.password,
-    port: 5432,
+    port: dbConfig.port,
   });
 
   module.exports = client;

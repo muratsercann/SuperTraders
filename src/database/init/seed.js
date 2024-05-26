@@ -1,39 +1,39 @@
 const Share = require("../../models/share");
 const User = require("../../models/user");
 const Portfolio = require("../../models/portfolio");
-const initialData = require("./initial_data");
+const initialData = require("./data");
 
 async function SeedDatabase() {
   try {
+    const count = await User.count();
+
+    if (count > 0) {
+      console.log("Seeding has been skipped..");
+      return;
+    }
+
+    console.log("Seeding has been started..");
+
     const createdUsers = await User.bulkCreate(initialData.users);
-    console.log("Bulk create for Users finished");
+    console.log(`Created ${initialData.users.length} users`);
 
     const createdShares = await Share.bulkCreate(initialData.shares);
     console.log("Bulk create for Shares finished");
+    console.log(`Created ${initialData.shares.length} Shares`);
 
-    const msercan = createdUsers.find((item) => item.username === "msercan");
-    const mchanbaz = createdUsers.find((item) => item.username === "mchanbaz");
-    const fgurdal = createdUsers.find((item) => item.username === "fgurdal");
+    let portfolios = [];
 
-    const portfolios = [
-      {
-        userId: msercan.id,
-        limit: 100000.0,
-      },
-      {
-        userId: mchanbaz.id,
-        limit: 1000.0,
-      },
-      {
-        userId: fgurdal.id,
-        limit: 1000.0,
-      },
-    ];
+    for (let i = 1; i < 4; i++) {
+      portfolios.push({
+        userId: i,
+        limit: 1000,
+      });
+    }
 
     const createdPortfolios = await Portfolio.bulkCreate(portfolios);
-
-    console.log("Portfolio bulk create finished");
+    console.log(`Portfolios for users with id : [1,2,3] has been created`);
   } catch (error) {
+    console.log("An error occured while seeding database! : ");
     console.log(error);
   }
 }

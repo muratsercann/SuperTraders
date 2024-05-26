@@ -6,6 +6,7 @@ module.exports = {
         database: "supertradersdb",
         host: "localhost",
         dialect: "postgres",
+        port: 5432,
       },
     },
   };
