@@ -1,24 +1,24 @@
 const Transactionlog = require("../models/transactionlog");
 
-const create = async (
-  userAggregate,
-  share,
-  quantity,
-  transactionType,
-  transaction
-) => {
+const create = async (User, share, quantity, transactionType, transaction) => {
+  
   const totalPrice = share.currentPrice * quantity;
+  const afterLimit =
+    transactionType === "buy"
+      ? User.Portfolio.limit - totalPrice
+      : User.Portfolio.limit + totalPrice;
+
   await Transactionlog.create(
     {
-      userId: userAggregate.id,
-      portfolioId: userAggregate.Portfolio.id,
+      userId: User.id,
+      portfolioId: User.Portfolio.id,
       shareId: share.id,
       quantity: quantity,
       pricePerShare: share.currentPrice,
       totalPrice: totalPrice,
       transactionType: transactionType,
-      beforeLimit: userAggregate.Portfolio.limit,
-      afterLimit: userAggregate.Portfolio.limit - totalPrice,
+      beforeLimit: User.Portfolio.limit,
+      afterLimit: afterLimit,
     },
     { transaction: transaction }
   );

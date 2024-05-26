@@ -87,7 +87,7 @@ async function SeedDatabase() {
     const portfolios = [
       {
         userId: msercan.id,
-        limit: 1000.0,
+        limit: 100000.0,
       },
       {
         userId: mchanbaz.id,

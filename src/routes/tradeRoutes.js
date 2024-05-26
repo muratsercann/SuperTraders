@@ -29,6 +29,6 @@ const validateInputs = (req, res, next) => {
 
 router.post("/buy/", validateInputs, tradeController.createBuyOrder);
 
-// router.post("/sell/", validateInput, tradeController.createSellOrder);
+router.post("/sell/", validateInputs, tradeController.createSellOrder);
 
 module.exports = router;
