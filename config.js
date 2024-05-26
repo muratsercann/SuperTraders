@@ -1,10 +1,9 @@
-// config.js
 module.exports = {
     development: {
       database: {
         username: "postgres",
         password: "12345678",
-        database: "mydb",
+        database: "supertradersdb",
         host: "localhost",
         dialect: "postgres",
       },

@@ -13,11 +13,14 @@ async function handleBuying(userId, shareIdToBuy, shareQuantityToBuy) {
     const userData = await User.getUserWithAssociatedData(userId);
 
     if (!userData || !userData.id) {
-      return { success: false, message: "User does not exist!" };
+      return { success: false, message: "User not found!" };
     }
 
     if (!userData.Portfolio) {
-      return { success: false, message: "Portfolio does not exist!" };
+      return {
+        success: false,
+        message: "The user has not got a Portfolio for trade!",
+      };
     }
 
     const shareToBuy = await Share.getShareById(shareIdToBuy);
@@ -25,7 +28,7 @@ async function handleBuying(userId, shareIdToBuy, shareQuantityToBuy) {
     if (!shareToBuy) {
       return {
         success: false,
-        message: "There is not exist such share in the market !",
+        message: "There is no such share in the market !",
       };
     }
 
@@ -46,11 +49,7 @@ async function handleBuying(userId, shareIdToBuy, shareQuantityToBuy) {
 
     //BEGIN TRANSACTION
     await sequelize.transaction(async (transaction) => {
-      await Portfolio.updateLimit(
-        userData.Portfolio.id,
-        newLimit,
-        transaction
-      );
+      await Portfolio.updateLimit(userData.Portfolio.id, newLimit, transaction);
 
       await AddShareToThePortfolio(
         userData,
@@ -74,14 +73,12 @@ async function handleBuying(userId, shareIdToBuy, shareQuantityToBuy) {
         "buy",
         transaction
       );
-
     });
-
   } catch (error) {
     console.error("Transaction rolled back due to error:", error);
-    return { success: false, message: error };
+    return { success: false, message: error.message };
   }
-  
+
   return { success: true, message: "Share bought successfully !" };
 }
 
@@ -91,16 +88,11 @@ async function AddShareToThePortfolio(
   shareQuantityToBuy,
   transaction
 ) {
-  //todo : edit
-  const existingPortfolioShares = userData.Portfolio.PortfolioShares;
-  const existingPortfolioShare = existingPortfolioShares.find(
+  const existingShareInPortfolio = userData.Portfolio.PortfolioShares?.find(
     (item) => item.shareId === shareIdToBuy
   );
 
-  if (
-    !existingPortfolioShares ||
-    !existingPortfolioShares.find((item) => item.shareId === shareIdToBuy)
-  ) {
+  if (!existingShareInPortfolio) {
     await PortfolioShare.create(
       userData.Portfolio.id,
       shareIdToBuy,

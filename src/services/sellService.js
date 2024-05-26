@@ -13,11 +13,11 @@ async function handleSelling(userId, shareIdToSell, shareQuantityToSell) {
     const userData = await User.getUserWithAssociatedData(userId);
 
     if (!userData || !userData.id) {
-      return { success: false, message: "User does not exist!" };
+      return { success: false, message: "User not found!" };
     }
 
     if (!userData.Portfolio) {
-      return { success: false, message: "Portfolio does not exist!" };
+      return { success: false, message: "The user has not got a Portfolio for trade!" };
     }
 
     const shareToSell = await Share.getShareById(shareIdToSell);
@@ -25,13 +25,12 @@ async function handleSelling(userId, shareIdToSell, shareQuantityToSell) {
     if (!shareToSell) {
       return {
         success: false,
-        message: "There is not exist such share in the market !",
+        message: "There is no such share in the market !",
       };
     }
 
     const totalPriceforSell = shareToSell.currentPrice * shareQuantityToSell;
 
-    //todo :
     const existingShareInPortfolio = userData.Portfolio.PortfolioShares?.find(
       (item) => item.shareId === shareIdToSell
     );
@@ -86,23 +85,8 @@ async function handleSelling(userId, shareIdToSell, shareQuantityToSell) {
       );
     });
   } catch (error) {
-    console.error("Transaction rolled back due to error:", error);
-    return { success: false, message: error };
+    return { success: false, message: error.message };
   }
 
   return { success: true, message: "Share sold successfully !" };
-}
-
-async function RemoveShareFromThePortfolio(
-  userData,
-  shareIdToBuy,
-  shareQuantityToBuy,
-  transaction
-) {
-  await PortfolioShare.updateShareQuantity(
-    userData.Portfolio.id,
-    shareIdToBuy,
-    newQuantity,
-    transaction
-  );
 }
