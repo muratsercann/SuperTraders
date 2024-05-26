@@ -1,5 +1,5 @@
 const { Client } = require('pg');
-const config = require('../../../config');
+const config = require('../config');
 
 const env = process.env.NODE_ENV || 'development';
 const dbConfig = config[env].database;

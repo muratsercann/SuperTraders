@@ -1,5 +1,5 @@
 const client = require("./client");
-const config = require("../../../config");
+const config = require("../config");
 
 async function createDatabase() {
   const env = process.env.NODE_ENV || "development";
