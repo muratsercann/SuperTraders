@@ -100,11 +100,7 @@ async function AddShareToThePortfolio(
       transaction
     );
   } else {
-    let shareInPortfolio = userData.Portfolio.PortfolioShares.find(
-      (item) => item.shareId === shareIdToBuy
-    );
-
-    const newQuantity = shareInPortfolio.quantity + shareQuantityToBuy;
+    const newQuantity = existingShareInPortfolio.quantity + shareQuantityToBuy;
 
     await PortfolioShare.updateShareQuantity(
       userData.Portfolio.id,
