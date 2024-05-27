@@ -16,26 +16,14 @@ const Transactionlog = sequelize.define(
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: User,
-        key: "id",
-      },
     },
     portfolioId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: Portfolio,
-        key: "id",
-      },
     },
     shareId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: Share,
-        key: "id",
-      },
     },
     transactionType: {
       type: DataTypes.ENUM("buy", "sell"),
