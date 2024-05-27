@@ -3,7 +3,7 @@ module.exports = {
       database: {
         username: "postgres",
         password: "12345678",
-        database: "supertradersdb",
+        database: "msercan_supertradersdb",
         host: "localhost",
         dialect: "postgres",
         port: 5432,
