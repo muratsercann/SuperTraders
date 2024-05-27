@@ -4,6 +4,24 @@ const Portfolio = require("../models/portfolio");
 const PortfolioShare = require("../models/portfolioShare");
 
 
+const getAllUsers = async () => {
+  const users = await User.findAll({
+    include: {
+      model: Portfolio,
+      attributes: ["id", "userId", "limit"],
+      include: {
+        model: PortfolioShare,
+        attributes: ["id", "portfolioId", "shareId", "quantity"],
+        include: {
+          model: Share,
+          attributes: ["id", "symbol", "currentPrice", "quantity"],
+        },
+      },
+    },
+  });
+  return users;
+}
+
 const getUserWithAssociatedData = async (userId) => {
   const user = await User.findOne({
     where: { id: userId },
@@ -26,4 +44,5 @@ const getUserWithAssociatedData = async (userId) => {
 
 module.exports = {
   getUserWithAssociatedData,
+  getAllUsers
 };

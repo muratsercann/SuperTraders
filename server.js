@@ -2,13 +2,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const tradeRoutes = require("./src/routes/tradeRoutes");
 
-const dbSetup = require("./src/database/init/setup");
+const initDatabase = require("./src/database/seeds/index");
 
 async function run() {
   const app = express();
   const PORT = process.env.PORT || 3000;
 
-  await dbSetup.setup();
+  await initDatabase();
 
   app.use(bodyParser.json());
   app.use("/api/trade", tradeRoutes);
