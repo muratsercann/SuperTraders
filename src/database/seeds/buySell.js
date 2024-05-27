@@ -37,7 +37,7 @@ async function seedBuySell() {
     await sellService.handleSelling(2, 1, 1);
     await sellService.handleSelling(2, 2, 1);
     await sellService.handleSelling(2, 3, 1);
-    //for userId : 2 => after selling  =>  Total shares in the portfolio(shareId,count) : (1,5) - (2,5) - (3,5)
+    //for userId : 2 => after selling  =>  Total shares in the portfolio(shareId,count) : (1,4) - (2,4) - (3,4)
 
   } catch (error) {
     console.log(
