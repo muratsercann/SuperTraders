@@ -6,7 +6,7 @@ async function seedBuySell() {
     const count = await Transactionlog.count();
 
     if (count > 0) {
-      console.log("Seed Buy-Sell for seedings have been skipped..");
+      console.log("Seeds for Buy-Sell have been skipped..");
       return;
     }
     //buy for userId : 1 
@@ -41,7 +41,7 @@ async function seedBuySell() {
 
   } catch (error) {
     console.log(
-      "An error occured while creating buy sell operations for seeding.."
+      "An error occured while creating buy sell seeds.."
     );
   }
 }
