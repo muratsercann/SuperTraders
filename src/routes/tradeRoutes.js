@@ -1,5 +1,6 @@
 const express = require("express");
 const tradeController = require("../controllers/tradeController");
+const mainController = require("../controllers/mainController");
 
 const router = express.Router();
 
@@ -28,5 +29,11 @@ const validateInputs = (req, res, next) => {
 router.post("/buy/", validateInputs, tradeController.createBuyOrder);
 
 router.post("/sell/", validateInputs, tradeController.createSellOrder);
+
+router.get("/users/", mainController.getAllUsers);
+
+router.get("/shares/", mainController.getAllShares);
+
+router.get("/logs/", mainController.getTransactionLogs);
 
 module.exports = router;

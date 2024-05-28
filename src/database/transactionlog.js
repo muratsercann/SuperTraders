@@ -1,7 +1,6 @@
 const Transactionlog = require("../models/transactionlog");
 
 const create = async (user, share, quantity, transactionType, transaction) => {
-  
   const totalPrice = share.currentPrice * quantity;
   const afterLimit =
     transactionType === "buy"
@@ -24,4 +23,10 @@ const create = async (user, share, quantity, transactionType, transaction) => {
   );
 };
 
-module.exports = { create };
+const getAll = async () => {
+  return await Transactionlog.findAll({
+    order: [["createdAt", "desc"]],
+  });
+};
+
+module.exports = { create, getAll };

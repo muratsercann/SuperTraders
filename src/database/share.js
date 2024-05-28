@@ -1,5 +1,11 @@
 const Share = require("../models/share");
 
+async function getAllShares() {
+  return await Share.findAll({
+    order : ['id']
+  });
+}
+
 async function getShareById(shareId) {
   return await Share.findOne({
     where: {
@@ -20,4 +26,4 @@ const updateShareQuantity = async (shareId, newQuantity, transaction) => {
   );
 };
 
-module.exports = { getShareById, updateShareQuantity };
+module.exports = { getShareById, updateShareQuantity, getAllShares };
