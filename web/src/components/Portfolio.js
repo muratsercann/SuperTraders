@@ -5,7 +5,7 @@ export default function Portfolio({ user }) {
   if (!user.Portfolio || !user.Portfolio.PortfolioShares) {
     return <></>;
   }
-
+  user.Portfolio.PortfolioShares.sort((a, b) => a.shareId - b.shareId);
   return (
     <div className="border border-1" style={{ padding: "10px" }}>
       <div className="row">
@@ -50,7 +50,7 @@ export default function Portfolio({ user }) {
               </tr>
               <tr>
                 <td>Limit</td>
-                <td>{user.Portfolio.limit}</td>
+                <td>$ {user.Portfolio.limit}</td>
               </tr>
             </tbody>
           </Table>

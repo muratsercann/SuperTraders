@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Table } from "reactstrap";
 import moment from "moment";
-
+import SpinnerOverlay from "./SpinnerOverlay";
+import { toast } from "react-toastify";
 export default function Transactionlogs() {
   const [logs, setLogs] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchLogs = async () => {
@@ -16,13 +18,22 @@ export default function Transactionlogs() {
         setLogs(data);
       } catch (error) {
         console.error("Fetch error:", error);
+        toast.error("Error : " + error.message);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    fetchLogs();
+    setTimeout(async () => {
+      fetchLogs();
+    }, 200);
 
     return () => {};
   }, []);
+
+  if (isLoading) {
+    return <SpinnerOverlay />;
+  }
 
   return (
     <div className="transactionLogs">

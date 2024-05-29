@@ -1,11 +1,13 @@
 ﻿import React, { useState, useEffect } from "react";
 import { Table } from "reactstrap";
-
+import SpinnerOverlay from "./SpinnerOverlay";
+import { toast } from "react-toastify";
 export default function ShareList() {
   const [shares, setShares] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchShares = async () => {
       try {
         const response = await fetch("http://localhost:3000/api/trade/shares");
         if (!response.ok) {
@@ -15,13 +17,21 @@ export default function ShareList() {
         setShares(data);
       } catch (error) {
         console.error("Fetch error:", error);
+        toast.error("Error : " + error.message);
+      } finally {
+        setIsLoading(false);
       }
     };
-
-    fetchUsers();
+    setTimeout(async () => {
+      fetchShares();
+    }, 200);
 
     return () => {};
   }, []);
+
+  if (isLoading) {
+    return <SpinnerOverlay />;
+  }
 
   return (
     <div className="Share">

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Portfolio from "./Portfolio";
+import SpinnerOverlay from "./SpinnerOverlay";
+import { toast } from "react-toastify";
 
 export default function Portfoliolist() {
   const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -15,23 +18,29 @@ export default function Portfoliolist() {
         setUsers(data);
       } catch (error) {
         console.error("Fetch error:", error);
+        toast.error("Error : " + error.message);
+      } finally {
+        setIsLoading(false);
       }
     };
-
-    fetchUsers();
-
+    setTimeout(async () => {
+      fetchUsers();
+    }, 200);
     return () => {};
   }, []);
 
-  if (!users) {
-    return <></>;
+  if (isLoading) {
+    return <SpinnerOverlay />;
   }
+
   return (
-    <div>
-      <h1>Portfolios</h1>
-      {users.map((user) => (
-        <Portfolio key={user.id} user={user}></Portfolio>
-      ))}
+    <div style={{ position: "relative" }}>
+      <div>
+        <h1>Portfolios</h1>
+        {users.map((user) => (
+          <Portfolio key={user.id} user={user}></Portfolio>
+        ))}
+      </div>
     </div>
   );
 }
