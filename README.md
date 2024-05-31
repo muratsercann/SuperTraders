@@ -31,7 +31,7 @@
 - `get  http://localhost:3000/api/trade/users`    : gets all users with relational data
 - `get  http://localhost:3000/api/trade/logs`     : gets all transaction logs
 
-**Note : For testing buy and sell endpoints via postman, you can import and use the json file, I exported from the postman, in the `postman/` folder.** 
+**Note : For testing buy and sell endpoints via postman, you can import and use the json file, I exported from the postman, in the `.postman/` folder.** 
 
 ### Buy Endpoint
 
