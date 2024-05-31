@@ -23,11 +23,6 @@
     npm start
     ```
     When the application is first run, the database and tables will be created automatically if they do not already exist. And seeded with users and shares and transactions for buy and sell.
-5. Start the web project :
-    ```sh
-    cd supertraders/web
-    npm start
-    ```
 
 ## Endpoints : 
 - `post http://localhost:3000/api/trade/buy`      : buys a share for a user portfolio
